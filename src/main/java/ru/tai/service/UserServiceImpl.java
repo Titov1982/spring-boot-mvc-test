@@ -86,9 +86,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public void addRoleToUser(User user, String roleName) {
+    public void addUserWithRole(User user, String roleName) {
         Role role = roleService.findByRole(roleName);
-        if (role == null) {
+        if (role != null) { // было role != null
             user.addRole(role);
             userRepository.save(user);
         }

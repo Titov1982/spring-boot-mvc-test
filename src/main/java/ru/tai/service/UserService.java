@@ -19,7 +19,7 @@ public interface UserService {
     User findByLoginWithRolesAndMessages(String login);
 
     void add(User user);
-    void addRoleToUser(User user, String roleName);
+    void addUserWithRole(User user, String roleName);
 
     void addMessageToUser(User user, String message);
 
