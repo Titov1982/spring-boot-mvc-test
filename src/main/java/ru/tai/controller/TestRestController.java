@@ -10,19 +10,20 @@ import java.util.List;
 
 //@RestController
 @Controller
+@RequestMapping("/rest")
 public class TestRestController {
 
     @Autowired
     private UserService userService;
 
 
-    @GetMapping("/hello")
+    @GetMapping("hello")
     @ResponseBody
     public String hello(){
         return "Hello world!";
     }
 
-    @GetMapping("/users")
+    @GetMapping("users")
     @ResponseBody
     public String getUsers(){
         List<User> users = userService.findAll();
