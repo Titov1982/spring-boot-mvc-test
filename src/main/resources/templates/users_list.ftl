@@ -9,24 +9,26 @@
 <body>
 
 
-    <div class="container">
-        <div class="row">
-            <div class="col-sm">ID</div>
-            <div class="col-sm">Имя пользователя</div>
-            <div class="col-sm">Имя</div>
-            <div class="col-sm">Фамилия</div>
-            <div class="col-sm">Email</div>
+    <div class="container bg-light text-dark" >
+        <div class="row bg-secondary text-white">
+            <div class="col-sm border border-success">ID</div>
+            <div class="col-sm border border-success">Имя пользователя</div>
+            <div class="col-sm border border-success">Имя</div>
+            <div class="col-sm border border-success">Фамилия</div>
+            <div class="col-sm border border-success">Email</div>
         </div>
         <#list users as user>
             <div class="row">
-                <div class="col-sm">${user.id}</div>
-                <div class="col-sm">${user.login}</div>
-                <div class="col-sm">${user.firstName}</div>
-                <div class="col-sm">${user.lastName}</div>
-                <div class="col-sm">${user.email}</div>
+                <div class="col-sm border border-success">${user.id}</div>
+                <div class="col-sm border border-success">${user.login}</div>
+                <div class="col-sm border border-success">${user.firstName}</div>
+                <div class="col-sm border border-success">${user.lastName}</div>
+                <div class="col-sm border border-success">${user.email}</div>
             </div>
         </#list>
     </div>
+
+    <p><a href="/">На главную страницу</a></p>
 
 
 
