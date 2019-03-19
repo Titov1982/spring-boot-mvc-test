@@ -11,6 +11,7 @@
     <div>
         <p>Hello ${name}</p>
         <p><a href="/users">Посмотреть список пользователей</a></p>
+        <p><a href="/registration">Регистрация</a></p>
     </div>
 
 
