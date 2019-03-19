@@ -89,7 +89,7 @@ public class App implements CommandLineRunner
          * Далее производим выборку всех пользователей с ролями и сообщениями
          */
 //        User user3 = new User("user", "user", "User", "User", "user@user.net", null);
-//        userService.addRoleToUser(user3, "USER_R");
+//        userService.addUserWithRole(user3, "USER_R");
 //        List<User> users = userService.findAllWithRolesAndMessages();
 //        List<Message> allMessagesFromUser = users.get(0).getMessages();
 

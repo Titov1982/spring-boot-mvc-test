@@ -6,19 +6,20 @@
 </head>
 <body>
 <h3>Регистрация нового пользователя</h3>
+    <#--Форма для внесения параметров нового пользователя.
+        Свойства name тегов <input> должно соответствовать
+        названию параметра (@RequestParam) в соответствующем методе контроллера, отвечающего
+        за обработку данных формы-->
     <form action="/registration" method="post">
-        <p><input type="text" value="${user.login}"></p>
-        <p><input type="text" value="${user.password}"></p>
-        <p><input type="text" value="${user.firstName}"></p>
-        <p><input type="text" value="${user.lastName}"></p>
-        <p><input type="text" value="${user.email}"></p>
-        <#--<p><input type="text" value="${login}"></p>-->
-        <#--<p><input type="text" value="${password}"></p>-->
-        <#--<p><input type="text" value="${firstName}"></p>-->
-        <#--<p><input type="text" value="${lastName}"></p>-->
-        <#--<p><input type="text" value="${email}"></p>-->
+        <p><input type="text" name="login"></p>
+        <p><input type="password" name="password"></p>
+        <p><input type="text" name="firstName"></p>
+        <p><input type="text" name="lastName"></p>
+        <p><input type="email" name="email"></p>
         <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
     </form>
+
+    <p><a href="/">На главную страницу</a></p>
 
 </body>
 </html>
