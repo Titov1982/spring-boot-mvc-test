@@ -46,6 +46,9 @@ public class App implements CommandLineRunner
     @Override
     public void run(String... args) throws Exception {
 
+
+
+
 //        List<User> users = userService.findAll();
 //        User user1 = userService.findByLogin("titov");
 //        User user2 = userService.findByLoginWithRoles("titov");
@@ -85,10 +88,10 @@ public class App implements CommandLineRunner
          * Находим в базе необходимую ему роль и используя специальный сервисный метод назначаем ее пользователю
          * Далее производим выборку всех пользователей с ролями и сообщениями
          */
-        User user3 = new User("user", "user", "User", "User", "user@user.net", null);
-        userService.addRoleToUser(user3, "USER_R");
-        List<User> users = userService.findAllWithRolesAndMessages();
-        List<Message> allMessagesFromUser = users.get(0).getMessages();
+//        User user3 = new User("user", "user", "User", "User", "user@user.net", null);
+//        userService.addRoleToUser(user3, "USER_R");
+//        List<User> users = userService.findAllWithRolesAndMessages();
+//        List<Message> allMessagesFromUser = users.get(0).getMessages();
 
         /**
          * Находим ID пользователя по его логину
@@ -100,16 +103,16 @@ public class App implements CommandLineRunner
         /**
          * Проверка добавления сообщений пользователю
          */
-        User user4 = userService.findByLogin("admin");
-        userService.addMessageToUser(user4, "Привет от админа!!!!!!");
+//        User user4 = userService.findByLogin("admin");
+//        userService.addMessageToUser(user4, "Привет от админа!!!!!!");
 //        userService.addMessageToUser(user4, "ку ку");
 //        userService.addMessageToUser(user4, "Урааа!");
-        List<User> users2 = userService.findAllWithRolesAndMessages();
+//        List<User> users2 = userService.findAllWithRolesAndMessages();
 
         /**
          * Поиск всех сообщений указанного пользователя
          */
-        List<Message> messages = messageService.findByUser(user4);
+//        List<Message> messages = messageService.findByUser(user4);
 
         /**
          * После получения всех сообщений выбранного пользователя
@@ -122,13 +125,13 @@ public class App implements CommandLineRunner
          * Формируем значения начальной и конечной дат и времени из строковых значений.
          * Сформированные дачы (Date) передаем в метод сервиса выборки из базы.
          */
-        String startDataStr = "2019-03-18 17:00:00.000000";
-        String stopDataStr = "2019-03-18 17:36:00.000000";
-        SimpleDateFormat simpleDateFormatStartDataStr = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
-        SimpleDateFormat simpleDateFormatStopDataStr = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
-        Date startData = simpleDateFormatStartDataStr.parse(startDataStr);
-        Date stopData = simpleDateFormatStopDataStr.parse(stopDataStr);
-        List<Message> mes = messageService.findAllByDatetimeBetween(startData, stopData);
+//        String startDataStr = "2019-03-18 17:00:00.000000";
+//        String stopDataStr = "2019-03-18 17:36:00.000000";
+//        SimpleDateFormat simpleDateFormatStartDataStr = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
+//        SimpleDateFormat simpleDateFormatStopDataStr = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
+//        Date startData = simpleDateFormatStartDataStr.parse(startDataStr);
+//        Date stopData = simpleDateFormatStopDataStr.parse(stopDataStr);
+//        List<Message> mes = messageService.findAllByDatetimeBetween(startData, stopData);
 
         System.out.println("#------------- Finish -------------#");
     }
