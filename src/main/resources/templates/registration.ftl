@@ -37,8 +37,8 @@
             <input name="email" type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp" placeholder="Введите email">
         </div>
 
-        <button type="submit" class="btn btn-secondary">Подтвердить</button>
-        <button type="reset" class="btn btn-secondary">Сбросить</button>
+        <button type="submit" class="btn btn-secondary btn-sm">Подтвердить</button>
+        <button type="reset" class="btn btn-secondary btn-sm">Сбросить</button>
     </form>
 
 </div>

@@ -28,7 +28,7 @@
                 <div class="col-sm border border-white">
                     <form action="/delete_user" method="post">
                         <input name="id" type="hidden" class="form-control" id="inputId" value="${user.id}">
-                        <button type="submit" class="btn btn-secondary">Удалить</button>
+                        <button type="submit" class="btn btn-outline-secondary btn-sm">Удалить</button>
                     </form>
                 </div>
             </div>
