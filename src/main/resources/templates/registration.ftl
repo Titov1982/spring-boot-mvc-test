@@ -1,5 +1,7 @@
 
 
+<#--Страница регистрации новых пользователей-->
+
 <#include "common/header.ftl">
 
     <#--Форма для внесения параметров нового пользователя.
@@ -39,7 +41,6 @@
         <button type="reset" class="btn btn-secondary">Сбросить</button>
     </form>
 
-    <p><a href="/">На главную страницу</a></p>
 </div>
 
 <#include "common/footer.ftl">
