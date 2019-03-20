@@ -64,4 +64,14 @@ public class UserController {
         }
         return "redirect:/users";
     }
+
+
+    @PostMapping("/delete_user")
+    public  String deleteUser(@RequestParam("id") String id,
+                              Model model){
+
+        Long idFromPage = Long.parseLong(id);
+        userService.deleteById(idFromPage);;
+        return "redirect:/users";
+    }
 }

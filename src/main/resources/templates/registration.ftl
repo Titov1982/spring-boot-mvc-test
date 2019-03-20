@@ -11,7 +11,7 @@
 
 <div class="container">
 
-    <h3>Регистрация нового пользователя</h3>
+    <h3>Регистрация нового пользователя!!!!!!!!!!!</h3>
 
     <form action="/registration" method="post">
         <div class="form-group">
@@ -22,14 +22,14 @@
         <div class="form-group">
             <label for="inputPassword">Пароль</label>
             <input name="password" type="password" class="form-control" id="inputPassword" placeholder="Введите пароль">
-            <small id="passwordHelp" class="form-text text-muted">Не сообщайте свое имя пользователя посторонним.</small>
+            <small id="passwordHelp" class="form-text text-muted">Не сообщайте свой пароль посторонним.</small>
         </div>
         <div class="form-group">
             <label for="inputFirstName">Имя</label>
             <input name="firstName" type="text" class="form-control" id="inputFirstName" aria-describedby="firstNameHelp" placeholder="Введите имя">
         </div>
         <div class="form-group">
-            <label for="inputLastName">Имя</label>
+            <label for="inputLastName">Фамилия</label>
             <input name="lastName" type="text" class="form-control" id="inputLastName" aria-describedby="lastNameHelp" placeholder="Введите фамилию">
         </div>
         <div class="form-group">

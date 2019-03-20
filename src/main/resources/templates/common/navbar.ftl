@@ -8,6 +8,5 @@
     <a class="navbar-brand" href="/">@tai</a>
     <a class="nav-link text-secondary active" href="/registration">Регистрация</a>
     <a class="nav-link text-secondary" href="/users">Пользователи</a>
-    <a class="nav-link text-secondary" href="#">Link</a>
-    <a class="nav-link text-secondary disabled" href="#">Disabled</a>
+    <#--<a class="nav-link text-secondary disabled" href="#">Disabled</a>-->
 </nav>
