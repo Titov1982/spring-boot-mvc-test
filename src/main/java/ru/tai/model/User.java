@@ -21,6 +21,8 @@ public class User {
     @NotNull
     private String password;
 
+    private boolean active;
+
     private String firstName;
 
     private String lastName;
@@ -122,6 +124,14 @@ public class User {
 
     public void addMessage(Message message){
         messages.add(message);
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     @Override
