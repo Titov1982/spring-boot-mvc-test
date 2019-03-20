@@ -7,6 +7,8 @@
 - Spring Transactional
 - Spring MVC
 - База данный Postgres
+- Freemarker
+- Bootstrap 4
 --------------------
 ##### Проект опирается на наработки проекта spring-data-jpa-test.
 

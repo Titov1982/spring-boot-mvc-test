@@ -4,7 +4,7 @@
 
 <#--fixed-top-->
 
-<nav class="navbar navbar-dark bg-dark justify-content-end">
+<nav class="navbar navbar-dark bg-dark justify-content-end text-monospace">
     <a class="navbar-brand" href="/">@tai</a>
     <a class="nav-link text-secondary active" href="/registration">Регистрация</a>
     <a class="nav-link text-secondary" href="/users">Пользователи</a>

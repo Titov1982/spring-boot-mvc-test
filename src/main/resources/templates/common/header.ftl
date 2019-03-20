@@ -8,4 +8,6 @@
 </head>
 <body>
 
-<#include "menu.ftl">
+<div class="text-monospace">
+
+<#include "navbar.ftl">
