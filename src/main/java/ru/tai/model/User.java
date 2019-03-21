@@ -44,8 +44,9 @@ public class User {
     public User() {
     }
 
-    public User(@NotNull String login, @NotNull String password, String firstName, String lastName, String email, Role role) {
+    public User(@NotNull String login, @NotNull String password, String firstName, String lastName, String email, boolean active, Role role) {
         this.login = login;
+        this.active = active;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;

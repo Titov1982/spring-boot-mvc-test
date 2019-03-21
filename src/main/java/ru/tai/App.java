@@ -59,7 +59,7 @@ public class App implements CommandLineRunner
          */
 //        Role role1 = new Role();
 //        role1.setRole("ADMIN_R");
-//        User user1 = new User("admin", "admin", "Admin", "Admin", "admin@admin.net", role1);
+//        User user1 = new User("admin", "admin", "Admin", "Admin", "admin@admin.net", true, role1);
 //        //role1.addUser(user1);
 //        userService.add(user1);
 
@@ -88,7 +88,7 @@ public class App implements CommandLineRunner
          * Находим в базе необходимую ему роль и используя специальный сервисный метод назначаем ее пользователю
          * Далее производим выборку всех пользователей с ролями и сообщениями
          */
-//        User user3 = new User("user", "user", "User", "User", "user@user.net", null);
+//        User user3 = new User("user", "user", "User", "User", "user@user.net",true, null);
 //        userService.addUserWithRole(user3, "USER_R");
 //        List<User> users = userService.findAllWithRolesAndMessages();
 //        List<Message> allMessagesFromUser = users.get(0).getMessages();

@@ -57,7 +57,7 @@ public class UserController {
         // Ищем пользователя с указанным логинов в БД
         User user = userService.findByLogin(login);
         if (user == null){
-            User newUser = new User(login, password, firstName, lastName, email, null);
+            User newUser = new User(login, password, firstName, lastName, email, true, null);
             userService.addUserWithRole(newUser, "USER_R");
         }else{
             System.out.println("Пользователь с таким именем уже зарегистрирован");
@@ -66,10 +66,16 @@ public class UserController {
     }
 
 
+    /**
+     * POST метод для удаления выбранного пользователя по пришедшему ID из формы на странице
+     * @param id
+     * @param model
+     * @return
+     */
     @PostMapping("/delete_user")
     public  String deleteUser(@RequestParam("id") String id,
                               Model model){
-
+        // Преобразуем ID из String в Long
         Long idFromPage = Long.parseLong(id);
         userService.deleteById(idFromPage);;
         return "redirect:/users";
