@@ -6,6 +6,7 @@
 - Spring Data JPA
 - Spring Transactional
 - Spring MVC
+- Spring Security
 - База данный Postgres
 - Freemarker
 - Bootstrap 4
