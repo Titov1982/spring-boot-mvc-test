@@ -59,10 +59,13 @@ public class UserController {
         if (user == null){
             User newUser = new User(login, password, firstName, lastName, email, true, null);
             userService.addUserWithRole(newUser, "USER_R");
+            return "redirect:/login";
         }else{
             System.out.println("Пользователь с таким именем уже зарегистрирован");
+            return "redirect:/registration";
+
         }
-        return "redirect:/users";
+//        return "redirect:/users";
     }
 
 

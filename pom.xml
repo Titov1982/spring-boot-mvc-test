@@ -34,24 +34,37 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-data-jpa</artifactId>
     </dependency>
+
+    <!-- Подключаем модуль devtools для автоматической перекомпиляции приложения и подкачивания статики-->
       <dependency>
           <groupId>org.springframework.boot</groupId>
           <artifactId>spring-boot-devtools</artifactId>
       </dependency>
+
+    <!-- Подключаем шаблонизатор FreeMarker-->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-freemarker</artifactId>
     </dependency>
+
+    <!-- Подключаем модуль управления транзакциями Spring-->
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-tx</artifactId>
       <version>5.1.5.RELEASE</version>
     </dependency>
 
+    <!-- Подключаем JDBC драйвер Postgres-->
     <dependency>
       <groupId>org.postgresql</groupId>
       <artifactId>postgresql</artifactId>
       <scope>runtime</scope>
+    </dependency>
+
+     <!--Подключаем модуль безопасности Spring-->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-security</artifactId>
     </dependency>
 
     <dependency>
@@ -69,4 +82,5 @@
         </plugin>
       </plugins>
   </build>
+
 </project>

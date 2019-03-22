@@ -29,6 +29,7 @@
                 <div class="col-sm border border-white">
                     <form action="/delete_user" method="post" class="form-check form-check-inline">
                         <input name="id" type="hidden" class="form-control" id="id" value="${user.id}">
+                        <input type="hidden" name="_csrf" value="${_csrf.token}"/>
                         <button type="submit" class="btn btn-outline-secondary btn-sm">Удалить</button>
                     </form>
                     <#--<button type="button" class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#deleteModalCenterWindow" value="${user.id}">Удалить</button>-->

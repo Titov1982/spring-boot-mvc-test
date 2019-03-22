@@ -1,6 +1,8 @@
 package ru.tai.model;
 
 
+import org.springframework.security.core.GrantedAuthority;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
@@ -9,7 +11,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "ROLE")
-public class Role {
+public class Role implements GrantedAuthority {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -58,4 +60,8 @@ public class Role {
         users.add(user);
     }
 
+    @Override
+    public String getAuthority() {
+        return role;
+    }
 }

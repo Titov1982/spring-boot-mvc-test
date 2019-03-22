@@ -11,7 +11,7 @@
 
 <div class="container">
 
-    <h3>Регистрация нового пользователя!!!!!!!!!!!</h3>
+    <h3>Регистрация нового пользователя</h3>
 
     <form action="/registration" method="post">
         <div class="form-group">
@@ -37,6 +37,7 @@
             <input name="email" type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp" placeholder="Введите email">
         </div>
 
+        <input type="hidden" name="_csrf" value="${_csrf.token}"/>
         <button type="submit" class="btn btn-secondary btn-sm">Подтвердить</button>
         <button type="reset" class="btn btn-secondary btn-sm">Сбросить</button>
     </form>

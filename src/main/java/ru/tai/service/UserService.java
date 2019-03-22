@@ -1,10 +1,11 @@
 package ru.tai.service;
 
+import org.springframework.security.core.userdetails.UserDetailsService;
 import ru.tai.model.User;
 
 import java.util.List;
 
-public interface UserService {
+public interface UserService extends UserDetailsService {
 
     List<User> findAll();
     List<User> findAllWithRolesAndMessages();
