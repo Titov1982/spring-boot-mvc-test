@@ -14,7 +14,7 @@
 
 <#--Включаем моноширинный стиль текста на всех страницах.
     Закрывающий </div> находится в шаблоне footer.ftl-->
-<div class="text-monospace">
+<#--<div class="text-monospace">-->
 
 <#--Добавляем меню из шаблона navbar.ftl для всех страниц-->
 <#include "navbar.ftl">

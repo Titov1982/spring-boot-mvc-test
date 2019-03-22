@@ -18,6 +18,12 @@ public class MessageServiceImpl implements MessageService {
     private MessageRepository messageRepository;
 
     @Override
+    public List<Message> findAll() {
+        List<Message> messages = messageRepository.findAll();
+        return messages;
+    }
+
+    @Override
     public Message findById(Long id) {
         Optional<Message> message = messageRepository.findById(id);
         return message.get();

@@ -11,6 +11,8 @@ import java.util.Optional;
 @Service("messageService")
 public interface MessageService {
 
+    List<Message> findAll();
+
     Message findById(Long id);
 
     List<Message> findByUser(User user);
