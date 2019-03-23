@@ -33,45 +33,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<User> findAllWithRolesAndMessages() {
-        List<User> users = findAll();
-        for (User user: users) {
-            user.getRoles().iterator();
-            user.getMessages().iterator();
-        }
-        return users;
-    }
-
-    @Override
-    @Transactional(readOnly = true)
     public User findByLogin(String login) {
         User user = userRepository.findByLogin(login);
-        if (user != null){
-            user.setRoles(null);
-        user.setMessages(null);
-        }
-        return user;
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public User findByLoginWithRoles(String login) {
-        User user = userRepository.findByLogin(login);
-        if (user != null){
-            user.getRoles().iterator(); // Заставляем загрузить данные из сущности ROLE в единой транзакции
-            user.setMessages(null);
-        }
-        return user;
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public User findByLoginWithRolesAndMessages(String login) {
-        User user = userRepository.findByLogin(login);
-        if (user != null){
-            user.getRoles().iterator(); // Заставляем загрузить данные из сущности ROLE в единой транзакции
-        user.getMessages().iterator();  // Заставляем загрузить данные из сущности MESSAGE в единой транзакции
-        }
         return user;
     }
 
@@ -81,6 +44,10 @@ public class UserServiceImpl implements UserService {
         if (user != null){
             User userFromDb = userRepository.findByLogin(user.getLogin());
             if (userFromDb == null){
+                user.getRoles().iterator();
+                Role role = roleService.findByRole("USER_R");
+                user.addRole(role);
+
                 userRepository.save(user);
             }
         }
@@ -88,19 +55,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public void addUserWithRole(User user, String roleName) {
-        Role role = roleService.findByRole(roleName);
-        if (role != null) { // было role != null
-            user.addRole(role);
-            userRepository.save(user);
-        }
-    }
-
-    @Override
-    @Transactional
-    public void addMessageToUser(User user, String message) {
-        User userFromDb = userRepository.findByLogin(user.getLogin());
+    public void addMessageToUser(String login, String message) {
+        User userFromDb = userRepository.findByLogin(login);
         if (userFromDb != null){
+            userFromDb.getRoles().iterator();
+            userFromDb.getMessages().iterator();
             Message newMessage = new Message(message, userFromDb);
             userFromDb.addMessage(newMessage);
             userRepository.save(userFromDb);
@@ -125,7 +84,6 @@ public class UserServiceImpl implements UserService {
             userRepository.delete(user.get());
         }
     }
-
 
     @Override
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {

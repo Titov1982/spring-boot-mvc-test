@@ -13,6 +13,11 @@
             <div class="card-body">
                 <h6 class="card-title">Пользователь:${message.user.login}</h6>
                 <p class="card-text"><h6>${message.message}</h6></p>
+                <form action="/delete_message" method="post">
+                    <input name="id" type="hidden" class="form-control" id="id" value="${message.id}">
+                    <input type="hidden" name="_csrf" value="${_csrf.token}"/>
+                    <button type="submit" class="btn btn-outline-secondary btn-sm">Удалить сообщение</button>
+                </form>
             </div>
         </div>
     </#list>
@@ -26,13 +31,13 @@
 
     <#--action="/registration" method="post"-->
     <form action="/add_message" method="post">
-    <div class="form-group">
-        <label for="inputNewMassage">Введите новое сообщение:</label>
-        <textarea name="message" class="form-control mb-1" id="inputNewMassage" rows="3"></textarea>
-        <input type="hidden" name="_csrf" value="${_csrf.token}"/>
-        <button type="submit" class="btn btn-secondary btn-sm">Отправить</button>
-        <button type="reset" class="btn btn-secondary btn-sm">Стереть</button>
-    </div>
+        <div class="form-group">
+            <label for="inputNewMassage">Введите новое сообщение:</label>
+            <textarea name="message" class="form-control mb-1" id="inputNewMassage" rows="3"></textarea>
+            <input type="hidden" name="_csrf" value="${_csrf.token}"/>
+            <button type="submit" class="btn btn-secondary btn-sm">Отправить</button>
+            <button type="reset" class="btn btn-secondary btn-sm">Стереть</button>
+        </div>
     </form>
 
 

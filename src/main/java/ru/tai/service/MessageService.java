@@ -15,9 +15,11 @@ public interface MessageService {
 
     Message findById(Long id);
 
-    List<Message> findByUser(User user);
+//    List<Message> findByUser(User user);
 
-    List<Message> findAllByDatetimeBetween(Date start, Date stop);
+//    List<Message> findAllByDatetimeBetween(Date start, Date stop);
+
+    void save(Message message);
 
     void deleteById(Long id);
 }

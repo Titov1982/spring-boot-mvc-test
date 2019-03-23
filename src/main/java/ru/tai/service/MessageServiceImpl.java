@@ -29,17 +29,23 @@ public class MessageServiceImpl implements MessageService {
         return message.get();
     }
 
-    @Override
-    @Transactional(readOnly = true)
-    public List<Message> findByUser(User user) {
-        List<Message> messages = messageRepository.findByUser(user);
-        return messages;
-    }
+//    @Override
+//    @Transactional(readOnly = true)
+//    public List<Message> findByUser(User user) {
+//        List<Message> messages = messageRepository.findByUser(user);
+//        return messages;
+//    }
+//
+//    @Override
+//    @Transactional
+//    public List<Message> findAllByDatetimeBetween(Date start, Date stop) {
+//        return messageRepository.findAllByDatetimeBetween(start, stop);
+//    }
 
     @Override
     @Transactional
-    public List<Message> findAllByDatetimeBetween(Date start, Date stop) {
-        return messageRepository.findAllByDatetimeBetween(start, stop);
+    public void save(Message message) {
+        messageRepository.save(message);
     }
 
 

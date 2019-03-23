@@ -46,21 +46,12 @@ public class App implements CommandLineRunner
     @Override
     public void run(String... args) throws Exception {
 
-
-
-
-//        List<User> users = userService.findAll();
-//        User user1 = userService.findByLogin("titov");
-//        User user2 = userService.findByLoginWithRoles("titov");
-//        User user3 = userService.findByLoginWithRolesAndMessages("titov");
-
         /**
          * Создаем тестового пользователя --> admin
          */
 //        Role role1 = new Role();
 //        role1.setRole("ADMIN_R");
 //        User user1 = new User("admin", "admin", "Admin", "Admin", "admin@admin.net", true, role1);
-//        //role1.addUser(user1);
 //        userService.add(user1);
 
         /**

@@ -1,6 +1,7 @@
 package ru.tai.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,7 +32,11 @@ public class UserController {
      * @return
      */
     @GetMapping("/registration")
-    public String registration(Model model){
+    public String registration(@AuthenticationPrincipal User user,
+                               Model model){
+        if (user != null){
+            model.addAttribute("login", user.getLogin());
+        }
         return "registration";
     }
 
@@ -56,18 +61,17 @@ public class UserController {
                                       Model model){
         // Ищем пользователя с указанным логинов в БД
         User user = userService.findByLogin(login);
+        // Если не нашли, то регистрируем нового пользователя
         if (user == null){
             User newUser = new User(login, password, firstName, lastName, email, true, null);
-            userService.addUserWithRole(newUser, "USER_R");
+            userService.add(newUser);
             return "redirect:/login";
         }else{
             System.out.println("Пользователь с таким именем уже зарегистрирован");
             return "redirect:/registration";
 
         }
-//        return "redirect:/users";
     }
-
 
     /**
      * POST метод для удаления выбранного пользователя по пришедшему ID из формы на странице
@@ -76,11 +80,26 @@ public class UserController {
      * @return
      */
     @PostMapping("/delete_user")
-    public  String deleteUser(@RequestParam("id") String id,
+    public String deleteUser(@AuthenticationPrincipal User user,
+            @RequestParam("id") String id,
                               Model model){
+        User userFromDb = userService.findByLogin(user.getLogin());
         // Преобразуем ID из String в Long
         Long idFromPage = Long.parseLong(id);
-        userService.deleteById(idFromPage);;
+        // Если ID залогиненного пользователяь = ID выбранного для удаления пользователя,
+        // то удаляем выбранного пользователя
+        if (idFromPage == userFromDb.getId()){
+            userService.deleteById(idFromPage);
+            return "redirect:/login";
+        }
+        // Иначе просматриваем все роли зарегистрированного пользователя и если находим роль "ADMIN_R",
+        // то удаляем выбранного пользователя
+        List<Role> roles = userFromDb.getRoles();
+        for (Role role: roles){
+            if(role.getRole().equals("ADMIN_R")){
+                userService.deleteById(idFromPage);
+            }
+        }
         return "redirect:/users";
     }
 }
