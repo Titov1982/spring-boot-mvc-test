@@ -1,8 +1,8 @@
 
-<#macro user_login >
-    <#if login??>
-        <p>${login}</p>
+<#macro user_login>
+    <#if user??>
+        ${user.login}
     <#else>
-        <p>Гость</p>
+        Гость
     </#if>
 </#macro>

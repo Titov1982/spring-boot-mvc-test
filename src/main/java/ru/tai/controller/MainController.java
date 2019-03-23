@@ -30,7 +30,7 @@ public class MainController {
                         Model model) {
         model.addAttribute("name", name);
         if (user != null){
-            model.addAttribute("login", user.getLogin());
+            model.addAttribute("user", user);
         }
         return "index";
     }
@@ -40,7 +40,7 @@ public class MainController {
                            Model model){
         model.addAttribute("users", userService.findAll());
         if (user != null){
-            model.addAttribute("login", user.getLogin());
+            model.addAttribute("user", user);
         }
         return "users_list";
     }
@@ -50,7 +50,7 @@ public class MainController {
                               Model model){
         model.addAttribute("messages", messageService.findAll());
         if (user != null){
-            model.addAttribute("login", user.getLogin());
+            model.addAttribute("user", user);
         }
         return "messages_list";
     }

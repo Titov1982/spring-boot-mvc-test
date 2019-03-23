@@ -11,7 +11,10 @@
     <a class="nav-link text-secondary active" href="/registration">Регистрация</a>
     <a class="nav-link text-secondary" href="/users">Пользователи</a>
     <a class="nav-link text-secondary" href="/messages">Чат</a>
-    <#--<a class="nav-link text-secondary" href="#" ><@m.user_login/></a>-->
-    <a class="btn btn-primary btn-sm my-2 my-sm-0" href="#" role="button"><@m.user_login/></a>
+
+    <a class="btn btn-primary btn-sm my-2 my-sm-0" href="/userEdit" role="button"><@m.user_login/></a>
+
+    <#--href="/user/<@m.user_id>"-->
+
     <#--<a class="nav-link text-secondary disabled" href="#">Disabled</a>-->
 </nav>

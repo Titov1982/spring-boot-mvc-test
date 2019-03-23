@@ -35,7 +35,7 @@ public class UserController {
     public String registration(@AuthenticationPrincipal User user,
                                Model model){
         if (user != null){
-            model.addAttribute("login", user.getLogin());
+            model.addAttribute("user", user);
         }
         return "registration";
     }
@@ -102,4 +102,37 @@ public class UserController {
         }
         return "redirect:/users";
     }
+
+    @GetMapping("/userEdit")
+    public String userEdit(@AuthenticationPrincipal User user,
+                    Model model){
+        if (user != null){
+            model.addAttribute("user", user);
+        }
+        return "userEdit";
+
+    }
+
+    @PostMapping("/userEdit")
+    public String userUpdate(@AuthenticationPrincipal User user,
+                             @RequestParam("login") String login,
+                             @RequestParam("password") String password,
+                             @RequestParam("firstName") String firstName,
+                             @RequestParam("lastName") String lastName,
+                             @RequestParam("email") String email,
+                             Model model){
+        // Ищем пользователя с указанным логинов в БД
+        User userFromDb = userService.findByLogin(login);
+        // Если не нашли, то регистрируем нового пользователя
+        if (userFromDb == null){
+            user.setLogin(login);
+            user.setPassword(password);
+            user.setFirstName(firstName);
+            user.setLastName(lastName);
+            user.setEmail(email);
+            userService.update(user.getId(), user);
+        }
+        return "redirect:/users";
+    }
+
 }
