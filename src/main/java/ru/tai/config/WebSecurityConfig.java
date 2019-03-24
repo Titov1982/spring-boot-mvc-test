@@ -23,18 +23,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/", "/registration").permitAll()
-                .anyRequest().authenticated()
+                    .antMatchers("/",   // Пазрешаем полный доступ к главной транице
+                            "/registration",        // Разрешаем полный доступ к страниуе регистрации
+                            "/static/**")           // Разрешаем полный доступ к статике
+                    .permitAll()
+                    .anyRequest()
+                    .authenticated()
                 .and()
-                .formLogin()
-                .usernameParameter("login") // Попле добавлено дополнительно
-                .passwordParameter("password") // Попле добавлено дополнительно
-                .loginPage("/login")
-                .permitAll()
+                    .formLogin()
+                    .usernameParameter("login") // Попле добавлено дополнительно
+                    .passwordParameter("password") // Попле добавлено дополнительно
+                    .loginPage("/login")
+                    .permitAll()
                 .and()
-                .logout()
-                .permitAll()
-                ;//.and().csrf().disable();
+                    .logout()
+                    .permitAll();
+                //.and().csrf().disable();
     }
 
     @Override

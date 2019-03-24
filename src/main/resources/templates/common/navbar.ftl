@@ -28,7 +28,7 @@
 
 <#--</nav>-->
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar <#--navbar-expand-lg--> navbar-expand-sm navbar-dark bg-dark">
     <a class="navbar-brand mb-0 h1" href="/">@tai</a>
 
 
