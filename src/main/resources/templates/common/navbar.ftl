@@ -46,10 +46,6 @@
             </li>
         </ul>
         <a class="btn btn-primary btn-sm my-2 my-sm-0" href="/userEdit" role="button"><@m.user_login/></a>
-        <form action="/logout" method="post">
-            <input type="hidden" name="_csrf" value="${_csrf.token}" />
-
-            <button type="submit" class="btn btn-secondary btn-sm">Выход</button>
-        </form>
+        <@m.logout/>
     </div>
 </nav>
