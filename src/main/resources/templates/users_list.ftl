@@ -30,7 +30,7 @@
                     <#--Воводим список ролей пользователей-->
                     <div class="col-sm border border-white">
                         <#list user.roles as role>
-                            ${role.role}
+                            ${role.role}<#sep>,
                         </#list>
                     </div>
 
@@ -40,7 +40,13 @@
                             <input type="hidden" name="_csrf" value="${_csrf.token}"/>
                             <button type="submit" class="btn btn-outline-secondary btn-sm">Удалить</button>
                         </form>
-                        <#--<a class="btn btn-outline-secondary btn-sm" href="/userEditRole" role="button">Роли</a>-->
+
+                        <form action="/userEdit" method="get" class="form-check form-check-inline">
+                            <input name="id" type="hidden" class="form-control" id="id" value="${user.id}">
+                            <input type="hidden" name="_csrf" value="${_csrf.token}"/>
+                            <button type="submit" class="btn btn-outline-secondary btn-sm">Редактировать</button>
+                        </form>
+
                         <#--<button type="button" class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#deleteModalCenterWindow" value="${user.id}">Удалить</button>-->
                     </div>
                 </div>

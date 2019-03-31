@@ -35,14 +35,52 @@ public class MainController {
         return "index";
     }
 
-    @GetMapping("/users")
-    public String getUsers(@AuthenticationPrincipal User user,
-                           Model model){
-        model.addAttribute("users", userService.findAll());
+    /**
+     * GET метод, который показывает страницу регистрации нового пользователя registration.ftl.
+     * На странице расположена форма регистрации.
+     * @param model
+     * @return
+     */
+    @GetMapping("/registration")
+    public String registration(@AuthenticationPrincipal User user,
+                               Model model){
         if (user != null){
             model.addAttribute("user", user);
         }
-        return "users_list";
+        return "registration";
+    }
+
+    /**
+     * POST метод извлечения информации из формы регистрации пользователя со страницы registration.ftl
+     * и отправки данных в контроллер. Далее по полученным данным создается новый объект пользователь и
+     * записывается в базу данных. После регистрации переходим на страницу со списком пользователей.
+     * @param login
+     * @param password
+     * @param firstName
+     * @param lastName
+     * @param email
+     * @param model
+     * @return
+     */
+    @PostMapping("/registration")
+    public String addUser(@RequestParam("login") String login,
+                          @RequestParam("password") String password,
+                          @RequestParam("firstName") String firstName,
+                          @RequestParam("lastName") String lastName,
+                          @RequestParam("email") String email,
+                          Model model){
+        // Ищем пользователя с указанным логинов в БД
+        User user = userService.findByLogin(login);
+        // Если не нашли, то регистрируем нового пользователя
+        if (user == null){
+            User newUser = new User(login, password, firstName, lastName, email, true, null);
+            userService.add(newUser);
+            return "redirect:/login";
+        }else{
+            System.out.println("Пользователь с таким именем уже зарегистрирован");
+            return "redirect:/registration";
+
+        }
     }
 
     @GetMapping("/messages")

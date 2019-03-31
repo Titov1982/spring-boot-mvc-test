@@ -19,8 +19,8 @@
             </div>
             <div class="form-group">
                 <label for="inputPassword">Пароль</label>
-                <input name="password" type="password" class="form-control" id="inputPassword" placeholder="Введите пароль" value="${user.password}>
-            <small id="passwordHelp" class="form-text text-muted">Не сообщайте свой пароль посторонним.</small>
+                <input name="password" type="password" class="form-control" id="inputPassword" placeholder="Введите пароль" value="${user.password}">
+                <small id="passwordHelp" class="form-text text-muted">Не сообщайте свой пароль посторонним.</small>
             </div>
             <div class="form-group">
                 <label for="inputFirstName">Имя</label>
@@ -34,6 +34,16 @@
                 <label for="inputEmail">Email</label>
                 <input name="email" type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp" placeholder="Введите email"  value="${user.email}">
             </div>
+            <div class="form-group">
+                <label for="checkboxRoles">Роли пользователя</label>
+                <#--<input name="email" type="email" class="form-control" id="checkboxRoles" aria-describedby="emailHelp" placeholder="Введите email"  value="${user.email}">-->
+                <#if adminUser == true>
+                    Admin
+                <#else>
+                    User
+                </#if>
+            </div>
+
 
             <input type="hidden" name="_csrf" value="${_csrf.token}"/>
             <button type="submit" class="btn btn-secondary btn-sm">Подтвердить</button>

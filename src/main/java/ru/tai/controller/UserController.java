@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.tai.model.Role;
 import ru.tai.model.User;
@@ -15,62 +16,20 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Map;
 
-
-/**
- * Контроллер обрабатывает запросы по пользователям
- */
 @Controller
 public class UserController {
 
     @Autowired
     private UserService userService;
 
-    /**
-     * GET метод, который показывает страницу регистрации нового пользователя registration.ftl.
-     * На странице расположена форма регистрации.
-     * @param model
-     * @return
-     */
-    @GetMapping("/registration")
-    public String registration(@AuthenticationPrincipal User user,
-                               Model model){
+    @GetMapping("/users")
+    public String getUsers(@AuthenticationPrincipal User user,
+                           Model model){
+        model.addAttribute("users", userService.findAll());
         if (user != null){
             model.addAttribute("user", user);
         }
-        return "registration";
-    }
-
-    /**
-     * POST метод извлечения информации из формы регистрации пользователя со страницы registration.ftl
-     * и отправки данных в контроллер. Далее по полученным данным создается новый объект пользователь и
-     * записывается в базу данных. После регистрации переходим на страницу со списком пользователей.
-     * @param login
-     * @param password
-     * @param firstName
-     * @param lastName
-     * @param email
-     * @param model
-     * @return
-     */
-    @PostMapping("/registration")
-    public String addUser(@RequestParam("login") String login,
-                          @RequestParam("password") String password,
-                          @RequestParam("firstName") String firstName,
-                          @RequestParam("lastName") String lastName,
-                          @RequestParam("email") String email,
-                                      Model model){
-        // Ищем пользователя с указанным логинов в БД
-        User user = userService.findByLogin(login);
-        // Если не нашли, то регистрируем нового пользователя
-        if (user == null){
-            User newUser = new User(login, password, firstName, lastName, email, true, null);
-            userService.add(newUser);
-            return "redirect:/login";
-        }else{
-            System.out.println("Пользователь с таким именем уже зарегистрирован");
-            return "redirect:/registration";
-
-        }
+        return "users_list";
     }
 
     /**
@@ -81,8 +40,8 @@ public class UserController {
      */
     @PostMapping("/delete_user")
     public String deleteUser(@AuthenticationPrincipal User user,
-            @RequestParam("id") String id,
-                              Model model){
+                             @RequestParam("id") String id,
+                             Model model){
         User userFromDb = userService.findByLogin(user.getLogin());
         // Преобразуем ID из String в Long
         Long idFromPage = Long.parseLong(id);
@@ -105,9 +64,27 @@ public class UserController {
 
     @GetMapping("/userEdit")
     public String userEdit(@AuthenticationPrincipal User user,
-                    Model model){
+                           @RequestParam(value="id", defaultValue="0") String id,
+                           Model model){
+        Long idLong = Long.parseLong(id);
         if (user != null){
-            model.addAttribute("user", user);
+            // Если приходит ID пользователя не равный 0, то получаем данные о редактируемом пользователе,
+            // а это значит, что редактирование осуществляет не сам выбранный пользователь, а админисратор
+            if(idLong != 0){
+                User editableUser =  userService.findById(idLong);
+                model.addAttribute("user", editableUser);
+            // Иначе, пользователь редактирует сам себя
+            }else{
+                model.addAttribute("user", user);
+            }
+            User userFromDb = userService.findByLogin(user.getLogin());
+            // Отправляем в шаблон данные, является ли пользователь администратором
+            if(userFromDb.isAdmin()){
+                model.addAttribute("adminUser", true);
+            }else{
+                model.addAttribute("adminUser", false);
+            }
+
         }
         return "userEdit";
 
@@ -123,14 +100,14 @@ public class UserController {
                              Model model){
         // Ищем пользователя с указанным логинов в БД
         User userFromDb = userService.findByLogin(login);
-        // Если не нашли, то регистрируем нового пользователя
-        if (userFromDb == null){
-            user.setLogin(login);
-            user.setPassword(password);
-            user.setFirstName(firstName);
-            user.setLastName(lastName);
-            user.setEmail(email);
-            userService.update(user.getId(), user);
+        // Если нашли, то регистрируем нового пользователя
+        if (userFromDb != null){
+            userFromDb.setLogin(login);
+            userFromDb.setPassword(password);
+            userFromDb.setFirstName(firstName);
+            userFromDb.setLastName(lastName);
+            userFromDb.setEmail(email);
+            userService.update(userFromDb.getId(), userFromDb);
         }
         return "redirect:/users";
     }

@@ -12,7 +12,7 @@
         </div>
 
         <div class="container mt-5">
-            <p><img src="/system/img/main_picture_1024x614.jpg"></p>
+            <p><img src="/system/img/main.jpg"></p>
         </div>
 
     </div>

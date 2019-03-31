@@ -1,10 +1,12 @@
 package ru.tai.model;
 
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -13,6 +15,10 @@ import java.util.List;
 @Entity
 @Table(name = "USR") // Таблица названа USR, так как в Postgres USER - это служебное слово и таблица не создается
 public class User implements UserDetails {
+
+    @Value(value = "${admin.role.name}")
+    @Transient
+    private String adminRoleName;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -179,5 +185,22 @@ public class User implements UserDetails {
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 '}';
+    }
+
+    /**
+     * Метод осуществляет поиск по ролям пользователя,
+     * если находит роль администратора, то возвращает true.
+     * @return
+     */
+    public boolean isAdmin(){
+//        this.roles.iterator();
+        List<Role> roles = this.roles;
+
+        for (Role role: roles) {
+            if(role.getRole().equals(/*adminRoleName*/ "ADMIN_R")){
+                return true;
+            }
+        }
+        return false;
     }
 }
