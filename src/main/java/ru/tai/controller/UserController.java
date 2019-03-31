@@ -1,6 +1,7 @@
 package ru.tai.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +22,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Value(value = "${admin.role.name}")
+    private String adminRoleName;
 
     @GetMapping("/users")
     public String getUsers(@AuthenticationPrincipal User user,
@@ -68,23 +72,20 @@ public class UserController {
                            Model model){
         Long idLong = Long.parseLong(id);
         if (user != null){
+            User userFromDb = userService.findByLogin(user.getLogin());
             // Если приходит ID пользователя не равный 0, то получаем данные о редактируемом пользователе,
             // а это значит, что редактирование осуществляет не сам выбранный пользователь, а админисратор
-            if(idLong != 0){
+            if(idLong != 0 && userFromDb.isAdmin(adminRoleName)){
                 User editableUser =  userService.findById(idLong);
                 model.addAttribute("user", editableUser);
+                // Отправляем в шаблон данные, что пользователь является администратором
+                model.addAttribute("adminUser", true);
             // Иначе, пользователь редактирует сам себя
             }else{
                 model.addAttribute("user", user);
-            }
-            User userFromDb = userService.findByLogin(user.getLogin());
-            // Отправляем в шаблон данные, является ли пользователь администратором
-            if(userFromDb.isAdmin()){
-                model.addAttribute("adminUser", true);
-            }else{
+                // Отправляем в шаблон данные, что пользователь не является администратором
                 model.addAttribute("adminUser", false);
             }
-
         }
         return "userEdit";
 

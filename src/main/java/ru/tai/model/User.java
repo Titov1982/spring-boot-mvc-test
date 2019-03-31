@@ -16,10 +16,6 @@ import java.util.List;
 @Table(name = "USR") // Таблица названа USR, так как в Postgres USER - это служебное слово и таблица не создается
 public class User implements UserDetails {
 
-    @Value(value = "${admin.role.name}")
-    @Transient
-    private String adminRoleName;
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -192,12 +188,12 @@ public class User implements UserDetails {
      * если находит роль администратора, то возвращает true.
      * @return
      */
-    public boolean isAdmin(){
+    public boolean isAdmin(String adminRoleName){
 //        this.roles.iterator();
         List<Role> roles = this.roles;
 
         for (Role role: roles) {
-            if(role.getRole().equals(/*adminRoleName*/ "ADMIN_R")){
+            if(role.getRole().equals(adminRoleName)){
                 return true;
             }
         }
