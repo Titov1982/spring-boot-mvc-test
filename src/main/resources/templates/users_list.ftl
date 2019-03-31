@@ -15,6 +15,7 @@
                 <div class="col-sm border border-white text-center">Имя</div>
                 <div class="col-sm border border-white text-center">Фамилия</div>
                 <div class="col-sm border border-white text-center">Email</div>
+                <div class="col-sm border border-white text-center">Роли пользователя</div>
                 <div class="col-sm border border-white text-center">Управление</div>
             </div>
             <#--Выводим в цыкле всех зарегистрированных пользователей-->
@@ -25,12 +26,21 @@
                     <div class="col-sm border border-white">${user.firstName}</div>
                     <div class="col-sm border border-white">${user.lastName}</div>
                     <div class="col-sm border border-white">${user.email}</div>
+
+                    <#--Воводим список ролей пользователей-->
+                    <div class="col-sm border border-white">
+                        <#list user.roles as role>
+                            ${role.role}
+                        </#list>
+                    </div>
+
                     <div class="col-sm border border-white">
                         <form action="/delete_user" method="post" class="form-check form-check-inline">
                             <input name="id" type="hidden" class="form-control" id="id" value="${user.id}">
                             <input type="hidden" name="_csrf" value="${_csrf.token}"/>
                             <button type="submit" class="btn btn-outline-secondary btn-sm">Удалить</button>
                         </form>
+                        <#--<a class="btn btn-outline-secondary btn-sm" href="/userEditRole" role="button">Роли</a>-->
                         <#--<button type="button" class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#deleteModalCenterWindow" value="${user.id}">Удалить</button>-->
                     </div>
                 </div>
