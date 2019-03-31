@@ -35,16 +35,16 @@
                     </div>
 
                     <div class="col-sm border border-white">
-                        <form action="/delete_user" method="post" class="form-check form-check-inline">
+                        <form action="/delete_user" method="post" class="form-check form-check-inline mr-1">
                             <input name="id" type="hidden" class="form-control" id="id" value="${user.id}">
                             <input type="hidden" name="_csrf" value="${_csrf.token}"/>
-                            <button type="submit" class="btn btn-outline-secondary btn-sm">Удалить</button>
+                            <button type="submit" class="btn btn-outline-secondary btn-sm">Del</button>
                         </form>
 
-                        <form action="/userEdit" method="get" class="form-check form-check-inline">
+                        <form action="/userEdit" method="get" class="form-check form-check-inline mr-1">
                             <input name="id" type="hidden" class="form-control" id="id" value="${user.id}">
                             <input type="hidden" name="_csrf" value="${_csrf.token}"/>
-                            <button type="submit" class="btn btn-outline-secondary btn-sm">Редактировать</button>
+                            <button type="submit" class="btn btn-outline-secondary btn-sm">Edit</button>
                         </form>
 
                         <#--<button type="button" class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#deleteModalCenterWindow" value="${user.id}">Удалить</button>-->

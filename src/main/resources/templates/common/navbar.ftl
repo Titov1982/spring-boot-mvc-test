@@ -45,7 +45,7 @@
                 <a class="nav-link text-secondary" href="/messages">Чат</a>
             </li>
         </ul>
-        <a class="btn btn-primary btn-sm my-2 my-sm-0" href="/userEdit" role="button"><@m.user_login/></a>
+        <a class="btn btn-primary btn-sm my-2 my-sm-0 mr-1" href="/userEdit" role="button"><@m.user_login/></a>
         <@m.logout/>
     </div>
 </nav>
