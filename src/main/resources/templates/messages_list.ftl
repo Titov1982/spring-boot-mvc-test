@@ -8,10 +8,10 @@
 
         <#list messages as message>
             <div class="card mb-1">
-                <h6 class="card-header">Дата и время:${message.datetime}</h6>
+                <p class="card-header">Дата и время: ${message.datetime}</p>
                 <div class="card-body">
-                    <h6 class="card-title">Пользователь:${message.user.login}</h6>
-                    <p class="card-text"><h6>${message.message}</h6></p>
+                    <p class="card-title">Пользователь: <strong>${message.user.login}</strong></p>
+                    <p class="card-text">${message.message}</p>
                     <form action="/delete_message" method="post">
                         <input name="id" type="hidden" class="form-control" id="id" value="${message.id}">
                         <input type="hidden" name="_csrf" value="${_csrf.token}"/>
