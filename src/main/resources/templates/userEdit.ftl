@@ -42,7 +42,7 @@
                         <#--ADMIN_R-->
                         <#list user.roles as role>
                             <div>
-                                <input name="${role.role}" type="checkbox" id="checkboxRoles" value="${role.role}">
+                                <input name="${role.role}" type="checkbox" ${user.roles?seq_contains(role)?string("checked", "")} id="checkboxRoles" value="${role.role}">
                                 <label for="checkboxRoles">${role.role}</label>
                             </div>
                         </#list>
@@ -51,7 +51,7 @@
                         <#--USER_R-->
                         <#list user.roles as role>
                             <div>
-                                <input name="${role.role}" type="checkbox" id="checkboxRoles" value="${role.role}" disabled>
+                                <input name="${role.role}" type="checkbox" ${user.roles?seq_contains(role)?string("checked", "")} id="checkboxRoles" value="${role.role}" disabled>
                                 <label for="checkboxRoles">${role.role}</label>
                             </div>
                         </#list>
