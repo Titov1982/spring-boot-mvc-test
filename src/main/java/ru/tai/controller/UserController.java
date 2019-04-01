@@ -23,13 +23,16 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    // Получаем название роли администратора из конфигурационного файла
     @Value(value = "${admin.role.name}")
     private String adminRoleName;
+
 
     @GetMapping("/users")
     public String getUsers(@AuthenticationPrincipal User user,
                            Model model){
         model.addAttribute("users", userService.findAll());
+        // Добавляем в модель страницы информацию о залогиненном пользователе
         if (user != null){
             model.addAttribute("user", user);
         }
@@ -76,6 +79,7 @@ public class UserController {
         }
         Long idLong = Long.parseLong(id);
         if (user != null){
+            // Получаем данные пользователя из БД с ролями
             User userFromDb = userService.findByLogin(user.getLogin());
             // Проверяем, является ли залогиненный пользователь, осуществляющий редактирование администратором,
             // если да, то разрешаем редактировать данные любого пользователя ID, которого пришел в параметре id.
@@ -87,7 +91,7 @@ public class UserController {
                 model.addAttribute("adminUser", true);
             // Иначе, пользователь редактирует сам себя
             }else{
-                model.addAttribute("user", user);
+                model.addAttribute("user", userFromDb);
                 // Отправляем в шаблон данные, что пользователь не является администратором
                 model.addAttribute("adminUser", false);
             }

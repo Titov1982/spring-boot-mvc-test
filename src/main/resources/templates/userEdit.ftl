@@ -35,14 +35,26 @@
                 <input name="email" type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp" placeholder="Введите email"  value="${user.email}">
             </div>
             <div class="form-group">
-                <label for="checkboxRoles">Роли пользователя</label>
-                <#--<input name="email" type="email" class="form-control" id="checkboxRoles" aria-describedby="emailHelp" placeholder="Введите email"  value="${user.email}">-->
+                <label>Роли пользователя:</label>
                 <div>
+                    <#--Если пользователь обладает административными правами-->
                     <#if adminUser == true>
-                        ADMIN_R
-                        <#--<input type="checkbox">-->
+                        <#--ADMIN_R-->
+                        <#list user.roles as role>
+                            <div>
+                                <input name="${role.role}" type="checkbox" id="checkboxRoles" value="${role.role}">
+                                <label for="checkboxRoles">${role.role}</label>
+                            </div>
+                        </#list>
+                     <#--Если у пользователя нет административных прав-->
                     <#else>
-                        USER_R
+                        <#--USER_R-->
+                        <#list user.roles as role>
+                            <div>
+                                <input name="${role.role}" type="checkbox" id="checkboxRoles" value="${role.role}" disabled>
+                                <label for="checkboxRoles">${role.role}</label>
+                            </div>
+                        </#list>
                     </#if>
                 </div>
             </div>
