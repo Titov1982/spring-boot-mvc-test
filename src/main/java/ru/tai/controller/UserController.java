@@ -113,6 +113,9 @@ public class UserController {
                              @RequestParam("firstName") String firstName,
                              @RequestParam("lastName") String lastName,
                              @RequestParam("email") String email,
+                             // В данном ассоциативном массиве мы получаем весь список входных парамеиров <input> со страницы.
+                             // Список параметров является переменным, так как checkbox элементы попадают в массив
+                             // только если они отмечены
                              @RequestParam Map<String, String> form,
                              Model model){
         // Ищем пользователя с указанным логинов в БД
@@ -130,13 +133,14 @@ public class UserController {
             // Получаем полный список возможных ролей из БД
             List<Role> roles = roleService.findAll();
 
-            //
+            // Выбираем из списка <input> элементов формы те, ключи которых при создании объекта Role
+            // образуют объект Role существующий в БД, и все совпадающие добавляем пользователю.
             for (String key: form.keySet()) {
                 if(roles.contains(new Role(key))){
                     userFromDb.addRole(roleService.findByRole(key));
                 }
             }
-
+            // Сохраняем изменения в БД
             userService.update(userFromDb.getId(), userFromDb);
         }
         return "redirect:/users";
