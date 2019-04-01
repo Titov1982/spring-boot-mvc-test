@@ -26,11 +26,13 @@ public class MainController {
 
     @GetMapping("/")
     public String index(@AuthenticationPrincipal User user,
-                        @RequestParam(value="name", required=false, defaultValue="World") String name,
                         Model model) {
-        model.addAttribute("name", name);
+
         if (user != null){
             model.addAttribute("user", user);
+//            model.addAttribute("loggedUser", true);
+        }else {
+//            model.addAttribute("loggedUser", false);
         }
         return "index";
     }
