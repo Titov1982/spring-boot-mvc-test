@@ -37,11 +37,14 @@
             <div class="form-group">
                 <label for="checkboxRoles">Роли пользователя</label>
                 <#--<input name="email" type="email" class="form-control" id="checkboxRoles" aria-describedby="emailHelp" placeholder="Введите email"  value="${user.email}">-->
-                <#if adminUser == true>
-                    Admin
-                <#else>
-                    User
-                </#if>
+                <div>
+                    <#if adminUser == true>
+                        ADMIN_R
+                        <#--<input type="checkbox">-->
+                    <#else>
+                        USER_R
+                    </#if>
+                </div>
             </div>
 
 

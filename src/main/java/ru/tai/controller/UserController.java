@@ -68,14 +68,19 @@ public class UserController {
 
     @GetMapping("/userEdit")
     public String userEdit(@AuthenticationPrincipal User user,
-                           @RequestParam(value="id", defaultValue="0") String id,
+                           @RequestParam(value="id") String id,
                            Model model){
+        // Если в ID пользователя приходит GUEST, то переходим на начальную страницу
+        if (id.equals("GUEST")){
+            return "index";
+        }
         Long idLong = Long.parseLong(id);
         if (user != null){
             User userFromDb = userService.findByLogin(user.getLogin());
-            // Если приходит ID пользователя не равный 0, то получаем данные о редактируемом пользователе,
-            // а это значит, что редактирование осуществляет не сам выбранный пользователь, а админисратор
-            if(idLong != 0 && userFromDb.isAdmin(adminRoleName)){
+            // Проверяем, является ли залогиненный пользователь, осуществляющий редактирование администратором,
+            // если да, то разрешаем редактировать данные любого пользователя ID, которого пришел в параметре id.
+            // Если нет, то выдаем на редактирование данные самого пользователя, который запросил редактирование.
+            if(userFromDb.isAdmin(adminRoleName)){
                 User editableUser =  userService.findById(idLong);
                 model.addAttribute("user", editableUser);
                 // Отправляем в шаблон данные, что пользователь является администратором

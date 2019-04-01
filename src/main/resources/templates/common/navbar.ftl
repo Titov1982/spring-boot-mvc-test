@@ -28,7 +28,7 @@
 
 <#--</nav>-->
 
-<nav class="navbar <#--navbar-expand-lg--> navbar-expand-sm navbar-dark bg-dark">
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
     <a class="navbar-brand mb-0 h1" href="/">@tai</a>
 
 
@@ -45,7 +45,16 @@
                 <a class="nav-link text-secondary" href="/messages">Чат</a>
             </li>
         </ul>
-        <a class="btn btn-primary btn-sm my-2 my-sm-0 mr-1" href="/userEdit" role="button"><@m.user_login/></a>
+
+        <#--Форма обработки редактирования пользователя.
+            Форма отсылает в контроллер ID выбранного для редактирования пользователя.-->
+        <form action="/userEdit" method="get" class="form-check form-check-inline mr-1">
+            <input name="id" type="hidden" class="form-control" id="id" value=<@m.user_id/>>
+            <input type="hidden" name="_csrf" value="${_csrf.token}"/>
+            <button type="submit" class="btn btn-outline-secondary btn-sm"><@m.user_login/></button>
+        </form>
+
+        <#--<a class="btn btn-primary btn-sm my-2 my-sm-0 mr-1" href="/userEdit" role="button"><@m.user_login/></a>-->
         <@m.logout/>
     </div>
 </nav>
