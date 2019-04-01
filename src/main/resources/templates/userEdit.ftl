@@ -40,7 +40,8 @@
                     <#--Если пользователь обладает административными правами-->
                     <#if adminUser == true>
                         <#--ADMIN_R-->
-                        <#list user.roles as role>
+                        <#--Выводим список всех существующих в БД ролей с привязкой к пользователю-->
+                        <#list roles as role>
                             <div>
                                 <input name="${role.role}" type="checkbox" ${user.roles?seq_contains(role)?string("checked", "")} id="checkboxRoles" value="${role.role}">
                                 <label for="checkboxRoles">${role.role}</label>
@@ -49,7 +50,8 @@
                      <#--Если у пользователя нет административных прав-->
                     <#else>
                         <#--USER_R-->
-                        <#list user.roles as role>
+                    <#--Выводим список всех существующих в БД ролей с привязкой к пользователю-->
+                        <#list roles as role>
                             <div>
                                 <input name="${role.role}" type="checkbox" ${user.roles?seq_contains(role)?string("checked", "")} id="checkboxRoles" value="${role.role}" disabled>
                                 <label for="checkboxRoles">${role.role}</label>

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.tai.model.Role;
 import ru.tai.model.User;
+import ru.tai.service.RoleService;
 import ru.tai.service.UserService;
 
 import javax.validation.constraints.NotNull;
@@ -22,6 +23,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private RoleService roleService;
 
     // Получаем название роли администратора из конфигурационного файла
     @Value(value = "${admin.role.name}")
@@ -95,6 +99,8 @@ public class UserController {
                 // Отправляем в шаблон данные, что пользователь не является администратором
                 model.addAttribute("adminUser", false);
             }
+            // Добавляем в модель список всех существующих в БД ролей
+            model.addAttribute("roles", roleService.findAll());
         }
         return "userEdit";
 
@@ -107,6 +113,7 @@ public class UserController {
                              @RequestParam("firstName") String firstName,
                              @RequestParam("lastName") String lastName,
                              @RequestParam("email") String email,
+                             @RequestParam Map<String, String> form,
                              Model model){
         // Ищем пользователя с указанным логинов в БД
         User userFromDb = userService.findByLogin(login);
@@ -117,6 +124,19 @@ public class UserController {
             userFromDb.setFirstName(firstName);
             userFromDb.setLastName(lastName);
             userFromDb.setEmail(email);
+
+            // Предварительно очещаем список ролей пользователя
+            userFromDb.getRoles().clear();
+            // Получаем полный список возможных ролей из БД
+            List<Role> roles = roleService.findAll();
+
+            //
+            for (String key: form.keySet()) {
+                if(roles.contains(new Role(key))){
+                    userFromDb.addRole(roleService.findByRole(key));
+                }
+            }
+
             userService.update(userFromDb.getId(), userFromDb);
         }
         return "redirect:/users";
