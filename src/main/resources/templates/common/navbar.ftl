@@ -1,8 +1,13 @@
 <#--Файл конфигурации navbar(меню).
 Встраивается в основной шаблон страниц-->
 
+
+<#-- Вставляем шаблон проверки входа пользователя в систему для изменения интерфейса-->
+<#include "security.ftl">
+
 <#--Вставляем макрос для вывода логина залогиненного пользователя пользователя справа в navbar-->
 <#import "macros.ftl" as m>
+
 
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
     <a class="navbar-brand mb-0 h1" href="/">@tai</a>
@@ -25,26 +30,25 @@
         <#--Форма обработки редактирования пользователя.
             Форма отсылает в контроллер ID выбранного для редактирования пользователя.-->
         <form action="/userEdit" method="get" class="form-check form-check-inline mr-1">
-            <input name="id" type="hidden" class="form-control" id="id" value=<@m.user_id/>>
+            <input name="id" type="hidden" class="form-control" id="id" value=<#--<@m.user_id/>-->${currentUserId}>
             <input type="hidden" name="_csrf" value="${_csrf.token}"/>
-            <button type="submit" class="btn btn-outline-secondary btn-sm"><@m.user_login/></button>
+            <button type="submit" class="btn btn-outline-secondary btn-sm"><#--<@m.user_login/>-->${login}</button>
         </form>
 
-        <#--<#if loggedUser == true>-->
+        <#--Если пользователь вошел-->
+        <#if user??>
         <#--Формы выхода из приложения-->
             <form action="/logout" method="post" >
                 <input type="hidden" name="_csrf" value="${_csrf.token}" />
                 <button type="submit" class="btn btn-secondary btn-sm">Выход</button>
             </form>
-        <#--<#else>-->
-        <#--Формы входа из приложения-->
+        <#else>
+        <#--Формы входа в приложения-->
             <form action="/login" method="post" >
                 <input type="hidden" name="_csrf" value="${_csrf.token}" />
                 <button type="submit" class="btn btn-secondary btn-sm">Вход</button>
             </form>
-        <#--</#if>-->
-
-        <#--${loggedUser?string('yes', 'no')}-->
+        </#if>
 
     </div>
 </nav>

@@ -26,7 +26,9 @@
                 <p class="card-header">Дата и время: ${message.datetime}</p>
                 <div class="card-body">
                     <p class="card-title">Пользователь: <strong>${message.user.login}</strong></p>
+
                     <p class="card-text">${message.message}</p>
+
                     <form action="/delete_message" method="post">
                         <input name="id" type="hidden" class="form-control" id="id" value="${message.id}">
                         <input type="hidden" name="_csrf" value="${_csrf.token}"/>

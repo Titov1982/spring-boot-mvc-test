@@ -12,9 +12,6 @@ import ru.tai.model.User;
 import ru.tai.service.MessageService;
 import ru.tai.service.UserService;
 
-import java.util.List;
-import java.util.Map;
-
 @Controller
 public class MainController {
 
@@ -30,9 +27,7 @@ public class MainController {
 
         if (user != null){
             model.addAttribute("user", user);
-//            model.addAttribute("loggedUser", true);
         }else {
-//            model.addAttribute("loggedUser", false);
         }
         return "index";
     }

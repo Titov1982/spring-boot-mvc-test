@@ -31,6 +31,10 @@ public class UserController {
     @Value(value = "${admin.role.name}")
     private String adminRoleName;
 
+    // Получаем название роли администратора из конфигурационного файла
+    @Value(value = "${guest.role.name}")
+    private String guestRoleName;
+
 
     @GetMapping("/users")
     public String getUsers(@AuthenticationPrincipal User user,
@@ -62,11 +66,11 @@ public class UserController {
             userService.deleteById(idFromPage);
             return "redirect:/login";
         }
-        // Иначе просматриваем все роли зарегистрированного пользователя и если находим роль "ADMIN_R",
+        // Иначе просматриваем все роли зарегистрированного пользователя и если находим роль указанную в adminRoleName,
         // то удаляем выбранного пользователя
         List<Role> roles = userFromDb.getRoles();
         for (Role role: roles){
-            if(role.getRole().equals("ADMIN_R")){
+            if(role.getRole().equals(adminRoleName)){
                 userService.deleteById(idFromPage);
             }
         }
@@ -78,7 +82,7 @@ public class UserController {
                            @RequestParam(value="id") String id,
                            Model model){
         // Если в ID пользователя приходит GUEST, то переходим на начальную страницу
-        if (id.equals("GUEST")){
+        if (id.equals(guestRoleName)){
             return "index";
         }
         Long idLong = Long.parseLong(id);
