@@ -8,7 +8,7 @@
     <div сlass="conteiner ">
 
         <div class="container mt-5">
-            <h2><p>Добро пожаловать в простой чат!</p></h2>
+            <p><h1>Добро пожаловать в простой чат!</h1></p>
         </div>
 
         <div class="container mt-5">

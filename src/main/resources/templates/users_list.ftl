@@ -8,53 +8,57 @@
         <h3>Список зарегистрированных пользователей</h3>
 
         <div class="container bg-light text-dark" >
-            <#--Собираем заголовок таблицы-->
-            <div class="row bg-secondary text-white">
-                <div class="col-sm border border-white text-center">ID</div>
-                <div class="col-sm border border-white text-center">Имя пользователя</div>
-                <div class="col-sm border border-white text-center">Имя</div>
-                <div class="col-sm border border-white text-center">Фамилия</div>
-                <div class="col-sm border border-white text-center">Email</div>
-                <div class="col-sm border border-white text-center">Роли пользователя</div>
-                <div class="col-sm border border-white text-center">Управление</div>
-            </div>
-            <#--Выводим в цыкле всех зарегистрированных пользователей-->
-            <#list users as user>
-                <div class="row">
-                    <div class="col-sm border border-white">${user.id}</div>
-                    <div class="col-sm border border-white">${user.login}</div>
-                    <div class="col-sm border border-white">${user.firstName}</div>
-                    <div class="col-sm border border-white">${user.lastName}</div>
-                    <div class="col-sm border border-white">${user.email}</div>
-
-                    <#--Воводим список ролей пользователей-->
-                    <div class="col-sm border border-white">
-                        <#list user.roles as role>
-                            ${role.role}<#sep>,
-                        </#list>
-                    </div>
-
-                    <#--Форма обработки удаления пользователя.
-                        Форма отсылает в контроллер ID выбранного для удаления пользователя.-->
-                    <div class="col-sm border border-white">
-                        <form action="/delete_user" method="post" class="form-check form-check-inline mr-1">
-                            <input name="id" type="hidden" class="form-control" id="id" value="${user.id}">
-                            <input type="hidden" name="_csrf" value="${_csrf.token}"/>
-                            <button type="submit" class="btn btn-outline-secondary btn-sm">Del</button>
-                        </form>
-
-                        <#--Форма обработки редактирования пользователя.
-                        Форма отсылает в контроллер ID выбранного для редактирования пользователя.-->
-                        <form action="/userEdit" method="get" class="form-check form-check-inline mr-1">
-                            <input name="id" type="hidden" class="form-control" id="id" value="${user.id}">
-                            <input type="hidden" name="_csrf" value="${_csrf.token}"/>
-                            <button type="submit" class="btn btn-outline-secondary btn-sm">Edit</button>
-                        </form>
-
-                        <#--<button type="button" class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#deleteModalCenterWindow" value="${user.id}">Удалить</button>-->
-                    </div>
+            <#--Выстовляем кастомный шрифт для таблицы-->
+            <minimal-font>
+                <#--Собираем заголовок таблицы-->
+                <div class="row bg-secondary text-white">
+                    <div class="col-sm border border-white text-center">ID</div>
+                    <div class="col-sm border border-white text-center">Имя пользователя</div>
+                    <div class="col-sm border border-white text-center">Имя</div>
+                    <div class="col-sm border border-white text-center">Фамилия</div>
+                    <div class="col-sm border border-white text-center">Email</div>
+                    <div class="col-sm border border-white text-center">Роли пользователя</div>
+                    <div class="col-sm border border-white text-center">Управление</div>
                 </div>
-            </#list>
+
+                <#--Выводим в цыкле всех зарегистрированных пользователей-->
+                <#list users as user>
+                    <div class="row">
+                        <div class="col-sm border border-white">${user.id}</div>
+                        <div class="col-sm border border-white">${user.login}</div>
+                        <div class="col-sm border border-white">${user.firstName}</div>
+                        <div class="col-sm border border-white">${user.lastName}</div>
+                        <div class="col-sm border border-white">${user.email}</div>
+
+                        <#--Воводим список ролей пользователей-->
+                        <div class="col-sm border border-white">
+                            <#list user.roles as role>
+                                ${role.role}<#sep>,
+                            </#list>
+                        </div>
+
+                        <#--Форма обработки удаления пользователя.
+                            Форма отсылает в контроллер ID выбранного для удаления пользователя.-->
+                        <div class="col-sm border border-white">
+                            <form action="/delete_user" method="post" class="form-check form-check-inline mr-1">
+                                <input name="id" type="hidden" class="form-control" id="id" value="${user.id}">
+                                <input type="hidden" name="_csrf" value="${_csrf.token}"/>
+                                <button type="submit" class="btn btn-outline-secondary btn-sm">Del</button>
+                            </form>
+
+                            <#--Форма обработки редактирования пользователя.
+                            Форма отсылает в контроллер ID выбранного для редактирования пользователя.-->
+                            <form action="/userEdit" method="get" class="form-check form-check-inline mr-1">
+                                <input name="id" type="hidden" class="form-control" id="id" value="${user.id}">
+                                <input type="hidden" name="_csrf" value="${_csrf.token}"/>
+                                <button type="submit" class="btn btn-outline-secondary btn-sm">Edit</button>
+                            </form>
+
+                            <#--<button type="button" class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#deleteModalCenterWindow" value="${user.id}">Удалить</button>-->
+                        </div>
+                    </div>
+                </#list>
+            </minimal-font>
         </div>
 
     </div>

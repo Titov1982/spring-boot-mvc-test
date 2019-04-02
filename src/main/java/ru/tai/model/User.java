@@ -189,7 +189,6 @@ public class User implements UserDetails {
      * @return
      */
     public boolean isAdmin(String adminRoleName){
-//        this.roles.iterator();
         List<Role> roles = this.roles;
 
         for (Role role: roles) {

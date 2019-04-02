@@ -1,6 +1,7 @@
 package ru.tai.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,10 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private RoleService roleService;
+
+    // Получаем название роли пользователя из конфигурационного файла
+    @Value(value = "${user.role.name}")
+    private String userRoleName;
 
     @Override
     @Transactional(readOnly = true)
@@ -52,7 +57,7 @@ public class UserServiceImpl implements UserService {
             User userFromDb = userRepository.findByLogin(user.getLogin());
             if (userFromDb == null){
                 user.getRoles().iterator();
-                Role role = roleService.findByRole("USER_R");
+                Role role = roleService.findByRole(userRoleName);
                 user.addRole(role);
 
                 userRepository.save(user);

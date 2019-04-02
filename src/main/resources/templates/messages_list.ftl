@@ -4,6 +4,8 @@
 
 <@m.main>
 
+<minimal-font>
+
 <#--Форма ввода нового сообщения пользователя-->
     <div class="container">
         <h3>Сообщения пользователей</h3>
@@ -17,9 +19,9 @@
                 <button type="reset" class="btn btn-secondary btn-sm">Стереть</button>
             </div>
         </form>
-
+</minimal-font>
     </div>
-
+<minimal-font>
     <div class="container mt-5">
         <#list messages as message>
             <div class="card mb-1">
@@ -37,7 +39,7 @@
                 </div>
             </div>
         </#list>
-
+</minimal-font>
     </div>
 
 </@m.main>
