@@ -68,21 +68,15 @@
     <div class="modal fade" id="deleteModalCenterWindow" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Подтверждение удаления</h5>
-                    <#--<button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
-                        <#--<span aria-hidden="true">&times;</span>-->
-                    <#--</button>-->
-                </div>
+                <div class="modal-header"><h5 class="modal-title" id="exampleModalLongTitle">Подтверждение удаления</h5></div>
                 <div class="modal-body">Вы уверены, что хотите удалить пользователя?</div>
 
                 <div class="modal-footer">
-                    <#--<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>-->
                     <form action="/delete_user" method="post">
                         <input type="hidden" name="_csrf" value="${_csrf.token}"/>
                         <input name="id" type="hidden" class="form-control" id="id" value="${user.id}">
-                        <button type="submit" class="btn btn-outline-secondary btn-sm">Удалить</button>
-                        <button type="button" class="close btn-outline-secondary btn-sm" data-dismiss="modal">Закрыть</button>
+                        <button type="submit" class="btn btn-outline-secondary btn-sm bg-danger">Удалить</button>
+                        <button type="button" class="btn btn-outline-secondary btn-sm" data-dismiss="modal">Закрыть</button>
                     </form>
                 </div>
 
