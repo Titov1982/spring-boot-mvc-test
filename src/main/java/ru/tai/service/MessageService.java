@@ -15,6 +15,8 @@ public interface MessageService {
 
     Message findById(Long id);
 
+    List<Message> findAllByUserNotNullOrderByDatetimeDesc();
+
 //    List<Message> findByUser(User user);
 
 //    List<Message> findAllByDatetimeBetween(Date start, Date stop);

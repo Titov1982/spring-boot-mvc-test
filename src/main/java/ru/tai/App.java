@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.tai.model.Message;
 import ru.tai.model.Role;
 import ru.tai.model.User;
+import ru.tai.repository.MessageRepository;
 import ru.tai.service.MessageService;
 import ru.tai.service.RoleService;
 import ru.tai.service.UserService;
@@ -27,16 +28,19 @@ import java.util.Locale;
 @EnableTransactionManagement // включаем работу с транзакциями (SpringBootApplication - является @Configuration)
 public class App implements CommandLineRunner
 {
-    @Autowired
-    private UserService userService;
+//    @Autowired
+//    private UserService userService;
+//
+//    @Autowired
+//    @Qualifier("roleService")
+//    private RoleService roleService;
+//
+//    @Autowired
+//    @Qualifier("messageService")
+//    private MessageService messageService;
 
     @Autowired
-    @Qualifier("roleService")
-    private RoleService roleService;
-
-    @Autowired
-    @Qualifier("messageService")
-    private MessageService messageService;
+    private MessageRepository messageRepository;
 
     public static void main( String[] args )
     {

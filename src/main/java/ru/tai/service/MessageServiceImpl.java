@@ -18,15 +18,29 @@ public class MessageServiceImpl implements MessageService {
     private MessageRepository messageRepository;
 
     @Override
+    @Transactional
     public List<Message> findAll() {
         List<Message> messages = messageRepository.findAll();
         return messages;
     }
 
     @Override
+    @Transactional
     public Message findById(Long id) {
         Optional<Message> message = messageRepository.findById(id);
         return message.get();
+    }
+
+    /**
+     * Метод выбирает все сообщения у которых пользователь не NULL и сортирует их по времени и дате в обратном порядке,
+     * т.е. с начала будут самые новые сообщения.
+     * @return
+     */
+    @Override
+    @Transactional
+    public List<Message> findAllByUserNotNullOrderByDatetimeDesc() {
+        List<Message> messages = messageRepository.findAllByUserNotNullOrderByDatetimeDesc();
+        return messages;
     }
 
 //    @Override

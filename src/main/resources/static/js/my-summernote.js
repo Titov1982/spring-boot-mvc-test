@@ -1,3 +1,6 @@
+
+// Скрипт обработки формы редактора Summernote
+
 $('#my-summernote').summernote({
     minHeight: 200,
     placeholder: 'Write here ...',

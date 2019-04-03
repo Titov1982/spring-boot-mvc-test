@@ -83,7 +83,7 @@ public class MainController {
     @GetMapping("/messages")
     public String getMessages(@AuthenticationPrincipal User user,
                               Model model){
-        model.addAttribute("messages", messageService.findAll());
+        model.addAttribute("messages", messageService.findAllByUserNotNullOrderByDatetimeDesc());
         if (user != null){
             model.addAttribute("user", user);
         }
