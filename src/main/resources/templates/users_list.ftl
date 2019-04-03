@@ -24,16 +24,16 @@
                 </thead>
                 <tbody>
                 <#--Выводим в цыкле всех зарегистрированных пользователей-->
-                <#list users as user>
+                <#list users as u>
                     <tr>
-                        <td>${user.id}</td>
-                        <td>${user.login}</td>
-                        <td>${user.firstName}</td>
-                        <td>${user.lastName}</td>
-                        <td>${user.email}</td>
+                        <td>${u.id}</td>
+                        <td>${u.login}</td>
+                        <td>${u.firstName}</td>
+                        <td>${u.lastName}</td>
+                        <td>${u.email}</td>
                         <td>
                             <#--Воводим список ролей пользователей-->
-                            <#list user.roles as role>
+                            <#list u.roles as role>
                                 ${role.role}<#sep>,
                             </#list>
                         </td>
@@ -41,7 +41,7 @@
                             <#--Форма обработки удаления пользователя.
                                 Форма отсылает в контроллер ID выбранного для удаления пользователя.-->
                             <#--<form action="/delete_user" method="post" class="form-check form-check-inline mr-1">-->
-                                <#--<input name="id" type="hidden" class="form-control" id="id" value="${user.id}">-->
+                                <#--<input name="id" type="hidden" class="form-control" id="id" value="${u.id}">-->
                                 <#--<input type="hidden" name="_csrf" value="${_csrf.token}"/>-->
                                 <#--<button type="submit" class="btn btn-outline-secondary btn-sm">Del</button>-->
                             <#--</form>-->
@@ -49,12 +49,12 @@
                             <#--Форма обработки редактирования пользователя.
                                 Форма отсылает в контроллер ID выбранного для редактирования пользователя.-->
                             <form action="/userEdit" method="get" class="form-check form-check-inline mr-1">
-                                <input name="id" type="hidden" class="form-control" id="id" value="${user.id}">
+                                <input name="id" type="hidden" class="form-control" id="id" value="${u.id}">
                                 <input type="hidden" name="_csrf" value="${_csrf.token}"/>
                                 <button type="submit" class="btn btn-outline-secondary btn-sm">Edit</button>
                             </form>
 
-                            <button type="button" class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#deleteModalCenterWindow" value="${user.id}">Удалить</button>
+                            <button type="button" class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#deleteModalCenterWindow">Удалить</button>
                         </td>
                     </tr>
                 </#list>
@@ -74,7 +74,7 @@
                 <div class="modal-footer">
                     <form action="/delete_user" method="post">
                         <input type="hidden" name="_csrf" value="${_csrf.token}"/>
-                        <input name="id" type="hidden" class="form-control" id="id" value="${user.id}">
+                        <#--<input name="id" type="hidden" class="form-control" id="id" value="${u.id}">-->
                         <button type="submit" class="btn btn-outline-secondary btn-sm bg-danger">Удалить</button>
                         <button type="button" class="btn btn-outline-secondary btn-sm" data-dismiss="modal">Закрыть</button>
                     </form>
