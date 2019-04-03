@@ -20,7 +20,7 @@
                 <div class="card mb-1">
                     <p class="card-header">Дата и время: ${message.datetime}</p>
                     <div class="card-body">
-                        <p class="card-title">Пользователь: <strong>${message.user.login}</strong></p>
+                        <u class="text-success"><p class="card-title">Пользователь: <strong>${message.user.login}</strong></p></u>
 
                         <p class="card-text">${message.message}</p>
 

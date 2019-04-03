@@ -8,11 +8,11 @@
     <div сlass="conteiner ">
 
         <div class="container mt-5">
-            <p><h1>Добро пожаловать в простой чат!</h1></p>
+            <p><h2>Добро пожаловать в простой чат!</h2></p>
         </div>
 
         <div class="container mt-5">
-            <p><img src="/system/img/main.jpg"></p>
+            <p><img class="img-fluid" src="/system/img/main.jpg"></p>
         </div>
 
     </div>
