@@ -7,39 +7,39 @@
 
         <h3>Список зарегистрированных пользователей</h3>
 
-        <div class="container bg-light text-dark" >
-            <#--Выстовляем кастомный шрифт для таблицы-->
-            <minimal-font>
-                <#--Собираем заголовок таблицы-->
-                <div class="row bg-secondary text-white">
-                    <div class="col-sm border border-white text-center">ID</div>
-                    <div class="col-sm border border-white text-center">Имя пользователя</div>
-                    <div class="col-sm border border-white text-center">Имя</div>
-                    <div class="col-sm border border-white text-center">Фамилия</div>
-                    <div class="col-sm border border-white text-center">Email</div>
-                    <div class="col-sm border border-white text-center">Роли пользователя</div>
-                    <div class="col-sm border border-white text-center">Управление</div>
-                </div>
-
+        <#--Выстовляем кастомный шрифт для таблицы-->
+        <minimal-font>
+            <#--Собираем заголовок таблицы-->
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Имя пользователя</th>
+                    <th scope="col">Имя</th>
+                    <th scope="col">Фамилия</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Роли пользователя</th>
+                    <th scope="col">Управление</th>
+                </tr>
+                </thead>
+                <tbody>
                 <#--Выводим в цыкле всех зарегистрированных пользователей-->
                 <#list users as user>
-                    <div class="row">
-                        <div class="col-sm border border-white">${user.id}</div>
-                        <div class="col-sm border border-white">${user.login}</div>
-                        <div class="col-sm border border-white">${user.firstName}</div>
-                        <div class="col-sm border border-white">${user.lastName}</div>
-                        <div class="col-sm border border-white">${user.email}</div>
-
-                        <#--Воводим список ролей пользователей-->
-                        <div class="col-sm border border-white">
+                    <tr>
+                        <td>${user.id}</td>
+                        <td>${user.login}</td>
+                        <td>${user.firstName}</td>
+                        <td>${user.lastName}</td>
+                        <td>${user.email}</td>
+                        <td>
+                            <#--Воводим список ролей пользователей-->
                             <#list user.roles as role>
                                 ${role.role}<#sep>,
                             </#list>
-                        </div>
-
-                        <#--Форма обработки удаления пользователя.
-                            Форма отсылает в контроллер ID выбранного для удаления пользователя.-->
-                        <div class="col-sm border border-white">
+                        </td>
+                        <td>
+                            <#--Форма обработки удаления пользователя.
+                                Форма отсылает в контроллер ID выбранного для удаления пользователя.-->
                             <form action="/delete_user" method="post" class="form-check form-check-inline mr-1">
                                 <input name="id" type="hidden" class="form-control" id="id" value="${user.id}">
                                 <input type="hidden" name="_csrf" value="${_csrf.token}"/>
@@ -47,7 +47,7 @@
                             </form>
 
                             <#--Форма обработки редактирования пользователя.
-                            Форма отсылает в контроллер ID выбранного для редактирования пользователя.-->
+                                Форма отсылает в контроллер ID выбранного для редактирования пользователя.-->
                             <form action="/userEdit" method="get" class="form-check form-check-inline mr-1">
                                 <input name="id" type="hidden" class="form-control" id="id" value="${user.id}">
                                 <input type="hidden" name="_csrf" value="${_csrf.token}"/>
@@ -55,12 +55,12 @@
                             </form>
 
                             <#--<button type="button" class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#deleteModalCenterWindow" value="${user.id}">Удалить</button>-->
-                        </div>
-                    </div>
+                        </td>
+                    </tr>
                 </#list>
-            </minimal-font>
-        </div>
-
+                </tbody>
+            </table>
+        </minimal-font>
     </div>
 
 
