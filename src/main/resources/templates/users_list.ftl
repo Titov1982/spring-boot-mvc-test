@@ -1,5 +1,6 @@
 <#import "common/main.ftl" as m>
 
+
 <#--Страница вывода списка всех зарегистрированных пользователей-->
 
 <@m.main>
@@ -40,21 +41,21 @@
                         <td>
                             <#--Форма обработки удаления пользователя.
                                 Форма отсылает в контроллер ID выбранного для удаления пользователя.-->
-                            <#--<form action="/delete_user" method="post" class="form-check form-check-inline mr-1">-->
-                                <#--<input name="id" type="hidden" class="form-control" id="id" value="${u.id}">-->
-                                <#--<input type="hidden" name="_csrf" value="${_csrf.token}"/>-->
-                                <#--<button type="submit" class="btn btn-outline-secondary btn-sm">Del</button>-->
-                            <#--</form>-->
+                            <form action="/delete_user" method="post" class="form-check form-check-inline mr-1">
+                                <input name="id" type="hidden" class="form-control" id="id" value="${u.id}">
+                                <input type="hidden" name="_csrf" value="${_csrf.token}"/>
+                                <button type="submit" class="btn btn-outline-secondary btn-sm bg-danger">Del</button>
+                            </form>
+
+                            <#--<button id="deleteUserButton" data-delete="${u.id}" type="button" class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#deleteModalCenterWindow">Удалить</button>-->
 
                             <#--Форма обработки редактирования пользователя.
                                 Форма отсылает в контроллер ID выбранного для редактирования пользователя.-->
                             <form action="/userEdit" method="get" class="form-check form-check-inline mr-1">
-                                <input name="id" type="hidden" class="form-control" id="id" value="${u.id}">
+                                <input name="id" type="hidden" class="form-control" id="idUserEdit" value="${u.id}">
                                 <input type="hidden" name="_csrf" value="${_csrf.token}"/>
                                 <button type="submit" class="btn btn-outline-secondary btn-sm">Edit</button>
                             </form>
-
-                            <button type="button" class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#deleteModalCenterWindow">Удалить</button>
                         </td>
                     </tr>
                 </#list>
@@ -72,10 +73,10 @@
                 <div class="modal-body">Вы уверены, что хотите удалить пользователя?</div>
 
                 <div class="modal-footer">
-                    <form action="/delete_user" method="post">
+                    <form>
                         <input type="hidden" name="_csrf" value="${_csrf.token}"/>
-                        <#--<input name="id" type="hidden" class="form-control" id="id" value="${u.id}">-->
-                        <button type="submit" class="btn btn-outline-secondary btn-sm bg-danger">Удалить</button>
+                        <input name="id" type="hidden" class="form-control" id="idDeleteUser">
+                        <button type="submit" class="btn btn-outline-secondary btn-sm bg-danger" >Удалить</button>
                         <button type="button" class="btn btn-outline-secondary btn-sm" data-dismiss="modal">Закрыть</button>
                     </form>
                 </div>

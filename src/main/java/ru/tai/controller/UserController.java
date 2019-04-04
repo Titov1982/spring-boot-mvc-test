@@ -3,18 +3,18 @@ package ru.tai.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.tai.model.Role;
 import ru.tai.model.User;
 import ru.tai.service.RoleService;
 import ru.tai.service.UserService;
 
-import javax.validation.constraints.NotNull;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
 
@@ -56,7 +56,9 @@ public class UserController {
     @PostMapping("/delete_user")
     public String deleteUser(@AuthenticationPrincipal User user,
                              @RequestParam("id") String id,
-                             Model model){
+                             Model model,
+                             // Добавлен входной параметр с информацией о текущей сессии пользователя
+                             HttpSession session){
         User userFromDb = userService.findByLogin(user.getLogin());
         // Преобразуем ID из String в Long
         Long idFromPage = Long.parseLong(id);
@@ -64,6 +66,13 @@ public class UserController {
         // то удаляем выбранного пользователя
         if (idFromPage == userFromDb.getId()){
             userService.deleteById(idFromPage);
+
+            // После удаления текущего пользователя из БД необходимо очистить его сессию
+            // Получаем контекст безовасности из текущей сессии
+            SecurityContext ssc = (SecurityContext) session.getAttribute("SPRING_SECURITY_CONTEXT");
+            // Сбрасываем его
+            ssc.setAuthentication(null);
+
             return "redirect:/login";
         }
         // Иначе просматриваем все роли зарегистрированного пользователя и если находим роль указанную в adminRoleName,

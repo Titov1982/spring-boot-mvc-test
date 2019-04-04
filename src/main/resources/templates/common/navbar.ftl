@@ -6,7 +6,7 @@
 <#include "security.ftl">
 
 <#--Вставляем макрос для вывода логина залогиненного пользователя пользователя справа в navbar-->
-<#import "macros.ftl" as m>
+<#import "macros.ftl" as macros>
 
 
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
@@ -30,9 +30,9 @@
         <#--Форма обработки редактирования пользователя.
             Форма отсылает в контроллер ID выбранного для редактирования пользователя.-->
         <form action="/userEdit" method="get" class="form-check form-check-inline mr-1">
-            <input name="id" type="hidden" class="form-control" id="id" value=<#--<@m.user_id/>-->${currentUserId}>
+            <input name="id" type="hidden" class="form-control" id="id" value=${currentUserId}>
             <input type="hidden" name="_csrf" value="${_csrf.token}"/>
-            <button type="submit" class="btn btn-outline-secondary btn-sm"><#--<@m.user_login/>-->${login}</button>
+            <button type="submit" class="btn btn-outline-secondary btn-sm">${login}</button>
         </form>
 
         <#--Если пользователь вошел-->

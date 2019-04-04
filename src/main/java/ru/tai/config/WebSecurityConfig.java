@@ -37,6 +37,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .permitAll()
                 .and()
                     .logout()
+                    // указываем URL при удачном логауте
+//                    .logoutSuccessUrl("/login?logout")
+                    // делаем не валидной текущую сессию
+//                    .invalidateHttpSession(true)
                     .permitAll();
                 //.and().csrf().disable();
     }
