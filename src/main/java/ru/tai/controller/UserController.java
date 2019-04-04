@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.context.request.RequestContextHolder;
 import ru.tai.model.Role;
 import ru.tai.model.User;
 import ru.tai.service.RoleService;
@@ -69,9 +70,13 @@ public class UserController {
 
             // После удаления текущего пользователя из БД необходимо очистить его сессию
             // Получаем контекст безовасности из текущей сессии
-            SecurityContext ssc = (SecurityContext) session.getAttribute("SPRING_SECURITY_CONTEXT");
+            SecurityContext sc = (SecurityContext) session.getAttribute("SPRING_SECURITY_CONTEXT");
+            // Получаем данные текущего пользователя из сессии
+//            User u = (User) ssc.getAuthentication().getPrincipal();
+            // Еще один способ доступа к данным сессии
+//            RequestContextHolder.currentRequestAttributes().getSessionId();
             // Сбрасываем его
-            ssc.setAuthentication(null);
+            sc.setAuthentication(null);
 
             return "redirect:/login";
         }
@@ -133,7 +138,7 @@ public class UserController {
                              Model model){
         // Ищем пользователя с указанным логинов в БД
         User userFromDb = userService.findByLogin(login);
-        // Если нашли, то регистрируем нового пользователя
+        // Если  нашли, то редактируем пользователя
         if (userFromDb != null){
             userFromDb.setLogin(login);
             userFromDb.setPassword(password);
@@ -141,18 +146,23 @@ public class UserController {
             userFromDb.setLastName(lastName);
             userFromDb.setEmail(email);
 
-            // Предварительно очещаем список ролей пользователя
-            userFromDb.getRoles().clear();
-            // Получаем полный список возможных ролей из БД
-            List<Role> roles = roleService.findAll();
+            // Если пользователь редактирующий параметры пользователя
+            // является администратором, то редактируем роли
+            if(userFromDb.isAdmin(adminRoleName)){
+                // Предварительно очещаем список ролей пользователя
+                userFromDb.getRoles().clear();
+                // Получаем полный список возможных ролей из БД
+                List<Role> roles = roleService.findAll();
 
-            // Выбираем из списка <input> элементов формы те, ключи которых при создании объекта Role
-            // образуют объект Role существующий в БД, и все совпадающие добавляем пользователю.
-            for (String key: form.keySet()) {
-                if(roles.contains(new Role(key))){
-                    userFromDb.addRole(roleService.findByRole(key));
+                // Выбираем из списка <input> элементов формы те, ключи которых при создании объекта Role
+                // образуют объект Role существующий в БД, и все совпадающие добавляем пользователю.
+                for (String key: form.keySet()) {
+                    if(roles.contains(new Role(key))){
+                        userFromDb.addRole(roleService.findByRole(key));
+                    }
                 }
             }
+
             // Сохраняем изменения в БД
             userService.update(userFromDb.getId(), userFromDb);
         }
