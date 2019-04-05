@@ -1,16 +1,14 @@
 package ru.tai.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.tai.model.User;
 import ru.tai.service.UserService;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/rest")
@@ -21,30 +19,41 @@ public class TestRestController {
 
 
     class Hello{
-        private final long id;
-        private final String content;
+        private long id;
+        private String content;
+
+        public Hello(){}
 
         public Hello(long id, String content) {
             this.id = id;
             this.content = content;
         }
 
-        public String getText() {
-            return content;
-        }
-
         public long getId() {
             return id;
         }
+
+        public String getContent() {
+            return content;
+        }
+
+        @Override
+        public String toString() {
+            return "Hello{" +
+                    "id=" + id +
+                    ", content='" + content + '\'' +
+                    '}';
+        }
     }
 
-    @GetMapping("hello")
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping(value = "hello")
     public Hello hello(){
         Hello hello = new Hello(123, "Hello world!");
-//        return "Hello world!";
         return hello;
     }
 
+    @ResponseStatus(HttpStatus.OK)
     @GetMapping("users")
     public List<User> getUsers(@AuthenticationPrincipal User user){
 //        List<User> users = userService.findAll();
