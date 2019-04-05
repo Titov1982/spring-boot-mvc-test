@@ -67,6 +67,9 @@
       <artifactId>spring-boot-starter-security</artifactId>
     </dependency>
 
+
+
+    <!--Подключаем модуль тестирования-->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>

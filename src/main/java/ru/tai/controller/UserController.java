@@ -41,6 +41,7 @@ public class UserController {
     public String getUsers(@AuthenticationPrincipal User user,
                            Model model){
         model.addAttribute("users", userService.findAll());
+//        model.addAttribute("users", userService.findByOrderByLoginAsc());
         // Добавляем в модель страницы информацию о залогиненном пользователе
         if (user != null){
             model.addAttribute("user", user);

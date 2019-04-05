@@ -13,6 +13,7 @@ import ru.tai.repository.UserRepository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 //@Transactional // Если включить транзакции на весь класс, то все методы в нем будут транзакционными
@@ -48,6 +49,37 @@ public class UserServiceImpl implements UserService {
     public User findByLogin(String login) {
         User user = userRepository.findByLogin(login);
         return user;
+    }
+
+    /**
+     * Получить всех пользователей с их ролями и сообщениями
+     * Так как у ролей и сообщений есть привязки к пользователям, то обнуляем их для разрыва цикличности
+     * @return
+     */
+    @Override
+    @Transactional(readOnly = true)
+    public List<User> findAllWithRolesAndMessages() {
+        List<User> users = userRepository.findAll();
+        List<User> users_list = users.stream().map((u) -> {
+            for (Role r: u.getRoles()) {
+                r.setUsers(null);
+            }
+            for (Message m: u.getMessages()) {
+                m.setUser(null);
+            }
+            return u;
+        }).collect(Collectors.toList());
+        return users_list;
+    }
+
+    /**
+     * // Прямая сортировка всех пользователей по логину
+     * @return
+     */
+    @Override
+    @Transactional(readOnly = true)
+    public List<User> findByOrderByLoginAsc() {
+        return userRepository.findByOrderByLoginAsc();
     }
 
     @Override
