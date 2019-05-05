@@ -1,15 +1,16 @@
 package ru.tai.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import ru.tai.model.User;
 import ru.tai.service.UserService;
 
 import java.util.List;
 
-//@RestController
-@Controller
+@RestController
 @RequestMapping("/rest")
 public class TestRestController {
 
@@ -17,22 +18,56 @@ public class TestRestController {
     private UserService userService;
 
 
-    @GetMapping("hello")
-    @ResponseBody
-    public String hello(){
-        return "Hello world!";
-    }
+    class Hello{
+        private long id;
+        private String content;
 
-    @GetMapping("users")
-    @ResponseBody
-    public String getUsers(){
-        List<User> users = userService.findAll();
-        String usersStr = "";
+        public Hello(){}
 
-        for (User user: users) {
-            usersStr += user.toString() + "  ";
+        public Hello(long id, String content) {
+            this.id = id;
+            this.content = content;
         }
-        return usersStr;
+
+        public long getId() {
+            return id;
+        }
+
+        public String getContent() {
+            return content;
+        }
+
+        @Override
+        public String toString() {
+            return "Hello{" +
+                    "id=" + id +
+                    ", content='" + content + '\'' +
+                    '}';
+        }
     }
+
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping(value = "hello")
+    public Hello hello(){
+        Hello hello = new Hello(123, "Hello world!");
+        return hello;
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("users")
+    public List<User> getUsers(@AuthenticationPrincipal User user){
+//        List<User> users = userService.findAll();
+        // Получение списка пользователей с обнуленным списком ролей и сообщений
+//        users = users.stream().map((u) -> {
+//            u.setRoles(null);
+//            u.setMessages(null);
+//            return u;
+//        }).collect(Collectors.toList());
+
+        List<User> users = userService.findAllWithRolesAndMessages();
+
+        return users;
+    }
+
 
 }
