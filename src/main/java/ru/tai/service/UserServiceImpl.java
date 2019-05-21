@@ -51,6 +51,13 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
+    @Override
+    public User findByLoginWithRoles(String login) {
+        User user = userRepository.findByLogin(login);
+        user.getRoles().iterator();
+        return user;
+    }
+
     /**
      * Получить всех пользователей с их ролями и сообщениями
      * Так как у ролей и сообщений есть привязки к пользователям, то обнуляем их для разрыва цикличности

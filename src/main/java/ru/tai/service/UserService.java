@@ -13,6 +13,8 @@ public interface UserService extends UserDetailsService {
 
     User findByLogin(String login);
 
+    User findByLoginWithRoles(String login);
+
     List<User> findByOrderByLoginAsc();
 
     List<User> findAllWithRolesAndMessages();

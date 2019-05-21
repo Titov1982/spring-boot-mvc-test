@@ -147,9 +147,13 @@ public class UserController {
             userFromDb.setLastName(lastName);
             userFromDb.setEmail(email);
 
+            // Получаем залогиненного пользователя из базы данных, для выборки имеющихся у него ролей,
+            // так как во входном параметре user не подгружены роли
+            User loggedUser= userService.findByLoginWithRoles(user.getLogin());
+
             // Если пользователь редактирующий параметры пользователя
             // является администратором, то редактируем роли
-            if(userFromDb.isAdmin(adminRoleName)){
+            if(loggedUser.isAdmin(adminRoleName)){
                 // Предварительно очещаем список ролей пользователя
                 userFromDb.getRoles().clear();
                 // Получаем полный список возможных ролей из БД
